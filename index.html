@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LinkLite | URL Shortener</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/">Link<span>Lite</span></a>
+    <span class="top-note">URL shortener & analytics</span>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <p class="eyebrow">SHORTEN. SHARE. TRACK.</p>
+      <h1>Make every link <span>count.</span></h1>
+      <p class="subtext">Turn long URLs into clean links and keep track of every visit.</p>
+    </section>
+
+    <section class="shortener card">
+      <form id="shorten-form">
+        <label for="originalUrl">Paste your long URL</label>
+        <div class="input-row">
+          <input id="originalUrl" name="originalUrl" type="url"
+                 placeholder="https://example.com/your/very/long/link" required>
+          <button id="submit-button" type="submit">Shorten URL</button>
+        </div>
+      </form>
+      <div id="message" class="message" role="status"></div>
+      <div id="result" class="result hidden">
+        <div>
+          <small>Your short link</small>
+          <a id="short-link" href="#" target="_blank" rel="noopener noreferrer"></a>
+        </div>
+        <button id="copy-button" class="secondary" type="button">Copy link</button>
+      </div>
+    </section>
+
+    <section class="stats-grid">
+      <article class="stat-card card"><span>Total short links</span><strong id="total-urls">0</strong></article>
+      <article class="stat-card card"><span>Total clicks</span><strong id="total-clicks">0</strong></article>
+      <article class="stat-card card"><span>Clicks today</span><strong id="clicks-today">0</strong></article>
+    </section>
+
+    <section class="links-section card">
+      <div class="section-heading">
+        <div><p class="eyebrow">YOUR LIBRARY</p><h2>Recent links</h2></div>
+        <button id="refresh-button" class="secondary" type="button">Refresh</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Short link</th><th>Destination</th><th>Clicks</th><th>Created</th></tr></thead>
+          <tbody id="links-body"><tr><td colspan="4" class="empty">Loading links…</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+    <p class="footer-note">Links are stored in your local MySQL database. Do not use this demo for sensitive or private URLs.</p>
+  </main>
+  <script src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+URL SHORTENER SERVICE — WINDOWS SETUP
+====================================
+
+This folder contains the complete project source code.
+You do NOT need to type Maven commands. Open it in IntelliJ IDEA and let the IDE import the project.
+Spring Boot projects still use a build tool internally; IntelliJ handles that for you.
+
+REQUIREMENTS
+------------
+1. Java JDK 17 or newer
+2. MySQL Server 8.0 installed and running
+3. IntelliJ IDEA (Community Edition is sufficient)
+4. Internet connection the first time, so IntelliJ can download project dependencies
+
+STEP 1 — CREATE THE DATABASE
+----------------------------
+1. Open MySQL 8.0 Command Line Client from the Windows Start menu.
+2. Enter your MySQL password.
+3. Copy and execute:
+
+   CREATE DATABASE IF NOT EXISTS url_shortener_db;
+
+4. To verify, execute:
+
+   SHOW DATABASES;
+
+MySQL Workbench is not needed.
+
+STEP 2 — SET YOUR MYSQL PASSWORD
+--------------------------------
+Open this file in the project:
+
+src/main/resources/application.properties
+
+Find these lines:
+
+spring.datasource.username=${DB_USERNAME:root}
+spring.datasource.password=${DB_PASSWORD:}
+
+If your MySQL root account has a password, change the second line to (replace the example):
+
+spring.datasource.password=your_actual_mysql_password
+
+If your MySQL root account has no password, leave it blank as it is.
+Save the file.
+
+STEP 3 — OPEN THE PROJECT
+-------------------------
+1. Extract the ZIP file to a normal folder, for example Desktop/url-shortener-service.
+2. Open IntelliJ IDEA.
+3. Choose File > Open.
+4. Select the extracted url-shortener-service folder — the folder containing pom.xml.
+5. If IntelliJ asks whether to trust the project, trust it if this is the project you downloaded.
+6. If prompted to load/import the Maven project, choose Load/Import/Trust and wait for indexing and dependency downloads to finish.
+   Do not type any Maven commands.
+
+STEP 4 — RUN THE APPLICATION
+----------------------------
+1. In IntelliJ, open:
+   src/main/java/com/example/urlshortener/UrlShortenerApplication.java
+2. Click the green Run triangle next to the main() method (or right-click the file and choose Run).
+3. Wait for the Run console to show that Spring Boot has started successfully.
+4. Keep the application running while you use the website.
+
+STEP 5 — OPEN THE WEBSITE
+-------------------------
+Open this address in Chrome or another browser:
+
+http://localhost:8080
+
+Enter a URL such as https://www.google.com and click Shorten URL.
+Open the generated short link in a new tab. Return to the dashboard and refresh it to see click statistics.
+
+CHECK THE DATABASE
+------------------
+In MySQL Command Line Client, run:
+
+USE url_shortener_db;
+SHOW TABLES;
+SELECT * FROM short_urls;
+SELECT * FROM click_events;
+
+The tables are created automatically by the application after the first successful startup.
+
+COMMON PROBLEMS
+---------------
+• Access denied for user 'root': check the username/password in application.properties.
+• Connection refused / Communications link failure: start the MySQL80 service in Windows Services.
+• Unknown database: run CREATE DATABASE IF NOT EXISTS url_shortener_db; in MySQL Command Line Client.
+• Port 8080 already in use: change server.port=8080 to server.port=8081 in application.properties and open http://localhost:8081.
+• IntelliJ shows dependencies are still loading: wait for import/download to finish, and make sure the computer has internet access.
+
+FEATURES
+--------
+• Create shortened URLs
+• Redirect short links to the original URL
+• Record click counts and click timestamps
+• Analytics dashboard with URL and click totals
+• View click history and delete URL entries
+• REST API endpoints for URL management
+
+This is a local learning project. Add authentication, rate limiting, abuse protection, and other security controls before public deployment.
